@@ -5,8 +5,11 @@ namespace DTApi\Http\Controllers;
 use DTApi\Models\Job;
 use DTApi\Http\Requests;
 use DTApi\Models\Distance;
+use Exception;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use DTApi\Repository\BookingRepository;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class BookingController
@@ -130,6 +133,10 @@ class BookingController extends Controller
         return response($response);
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function acceptJobWithId(Request $request)
     {
         $data = $request->get('job_id');
@@ -168,6 +175,10 @@ class BookingController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function customerNotCall(Request $request)
     {
         $data = $request->all();
@@ -192,6 +203,10 @@ class BookingController extends Controller
         return response($response);
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
     public function distanceFeed(Request $request)
     {
         $data = $request->all();
@@ -254,6 +269,10 @@ class BookingController extends Controller
         return response('Record updated!');
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function reopen(Request $request)
     {
         $data = $request->all();
@@ -262,6 +281,10 @@ class BookingController extends Controller
         return response($response);
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function resendNotifications(Request $request)
     {
         $data = $request->all();
@@ -275,7 +298,7 @@ class BookingController extends Controller
     /**
      * Sends SMS to Translator
      * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return ResponseFactory|Response
      */
     public function resendSMSNotifications(Request $request)
     {
@@ -286,7 +309,7 @@ class BookingController extends Controller
         try {
             $this->repository->sendSMSNotificationToTranslator($job);
             return response(['success' => 'SMS sent']);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response(['success' => $e->getMessage()]);
         }
     }
