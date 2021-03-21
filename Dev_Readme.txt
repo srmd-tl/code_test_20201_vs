@@ -6,3 +6,4 @@ return TeHelper::convertJobIdsInObjs($job_ids);
 -In some of the functions the statement is not even reachable, for example on line # 199 of BookingRepository,throw statement is being used after return statement. Which makes it unreachable
 -Optional parameters are supposed to placed after the required params.In this code its opposite
 -params types are not compatible
+-somewhere variables are using camel cases and somewhere snake cases are used, which shows that no proper coding patterns are followed
